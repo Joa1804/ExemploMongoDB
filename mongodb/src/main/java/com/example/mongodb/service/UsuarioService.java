@@ -1,0 +1,29 @@
+package com.example.mongodb.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.mongodb.model.Usuario;
+import com.example.mongodb.repository.UsuarioRepository;
+
+@Service
+public class UsuarioService {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public List<Usuario> ListTodos(){
+        return usuarioRepository.findAll();
+    }
+
+    public Optional<Usuario> buscaporid(String id){
+        return usuarioRepository.findById(id);
+    }
+
+    public Usuario salvar(Usuario usuario){
+        return usuarioRepository.save(usuario);
+    }
+}
