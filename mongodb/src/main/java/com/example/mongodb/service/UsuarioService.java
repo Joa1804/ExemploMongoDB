@@ -26,4 +26,22 @@ public class UsuarioService {
     public Usuario salvar(Usuario usuario){
         return usuarioRepository.save(usuario);
     }
+
+    public Usuario atualizar(String id, Usuario usuarioAtualizado) { 
+    Optional<Usuario> usuarioExistente = usuarioRepository.findById(id); 
+        if (usuarioExistente.isPresent()) { 
+            Usuario usuario = usuarioExistente.get(); 
+            usuario.setNome(usuarioAtualizado.getNome()); 
+            usuario.setEmail(usuarioAtualizado.getEmail()); 
+            return usuarioRepository.save(usuario); 
+        } else { 
+             throw new RuntimeException("Usuário não encontrado com ID: " + id); 
+         } 
+    }
+
+    public void deletar(String id) { 
+        usuarioRepository.deleteById(id); 
+    } 
+
+ 
 }

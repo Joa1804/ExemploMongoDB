@@ -8,7 +8,7 @@ public class Usuario {
 
     @Id
     private String id;
-    private String nombre;
+    private String nome;
     private String email;
 
     public String getId() {
@@ -18,11 +18,11 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNome() {
+        return nome;
     }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {
