@@ -79,6 +79,92 @@
         </thead>
         <tbody id="userTable"></tbody>
     </table>
-    
+    <script>
+        const apiUrl = "http://localhost:8080/usuarios";
+        const form = document.getElementById('userForm');
+        const table = documet.getElementById('userTable');
+
+        //Lista de usuarios
+        async function carregarUsuarios() {
+            try {
+                const res = await fetch(apiUrl);
+                const usuarios = await res.json();
+                table.innerHTML = "";
+                usuarios.forEach(u => {
+                    const tr = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${u.nome}</td>
+                        <td>${u.email}</td>
+                        <td class="actions">
+                            <button onclick="editarUsuario('${u._id}',${u.nome}',' ${u.email})">Editar</button>
+                            <button class="delete" onclick="deletarUsuario('${u._id}')"> Deletar </button>
+                            </td>
+                            ';
+                        table.appendChild(tr);
+                });
+            }catch (error) {
+                console.error("Erro ao carregar usuarios:", error);
+            }
+        }
+
+    //Criar ou atualizar
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userId = document.getElementById('userId').value;
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+        const usuario = { nome, email };
+
+        try {
+            if (userId) {
+                //Atualizar
+                await fetch(`${apiUrl}/${userId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(usuario)
+                });
+            } else {
+                //Criar
+                await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(usuario)
+                });
+            }
+         
+            //Limpar formulário e atualiza table
+            novoUsuario();
+            carregarUsuarios();
+        } catch (error) {
+         console.error("Erro ao salvar usuario:", error);}
+    });
+
+    // Editar Usuario
+    function editarUsuario(id, nome, email) {
+        document.getElementById('userId').value = id;
+        document.getElementById('nome').value = nome;
+        document.getElementById('email').value = email;
+    }
+
+    //  impar formulário para novo Usuário
+        function novoUsuario() {
+            form.reset();
+            document.getElementById('userId').value = '';
+            }
+    // Deletar Usuario
+    async function deletarUsuario(id) {
+        if (confirm("Tem certeza que deseja deletar este usuario?")) {
+            try {
+                await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+                carregarUsuarios();
+            } catch (error) {
+                console.error("Erro ao deletar usuario:", error);
+            }
+        }
+    }
+
+    //incializar tabela
+    carregarUsuarios();
+    </script>
 </body>
 </html>
