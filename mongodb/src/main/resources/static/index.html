@@ -4,60 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Usuários</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f4f6f8;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-        input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-        button {
-            padding: 8px 14px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        button:houver {
-            background-color: #0056b3;
-        }
-        table{
-            width: 100%;
-            border-collapse:  collapse;
-            background-color: white;
-        }
-        th, td {
-           padding: 10px;
-           border-bottom: 1px solid #ccc;
-           text-align: left;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        .actions button {
-            margin-right: 5px;
-            background-color: #28a745;
-        }
-        .acrions button.delete {
-            background-color: #dc3545;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Cadastro de Usuários</h1>
@@ -82,28 +29,28 @@
     <script>
         const apiUrl = "http://localhost:8080/usuarios";
         const form = document.getElementById('userForm');
-        const table = documet.getElementById('userTable');
+        const table = document.getElementById('userTable');
 
         //Lista de usuarios
         async function carregarUsuarios() {
             try {
-                const res = await fetch(apiUrl);
-                const usuarios = await res.json();
-                table.innerHTML = "";
-                usuarios.forEach(u => {
-                    const tr = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${u.nome}</td>
-                        <td>${u.email}</td>
-                        <td class="actions">
-                            <button onclick="editarUsuario('${u._id}',${u.nome}',' ${u.email})">Editar</button>
-                            <button class="delete" onclick="deletarUsuario('${u._id}')"> Deletar </button>
-                            </td>
-                            ';
-                        table.appendChild(tr);
-                });
-            }catch (error) {
-                console.error("Erro ao carregar usuarios:", error);
+            const res = await fetch(apiUrl);
+            const usuarios = await res.json();
+            table.innerHTML = "";
+            usuarios.forEach(u => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                <td>${u.nome}</td>
+                <td>${u.email}</td>
+                <td class="actions">
+                    <button onclick="editarUsuario('${u._id}', '${u.nome}', '${u.email}')">Editar</button>
+                    <button class="delete" onclick="deletarUsuario('${u._id}')">Deletar</button>
+                </td>
+                `;
+                table.appendChild(tr);
+            });
+            } catch (error) {
+            console.error("Erro ao carregar usuarios:", error);
             }
         }
 
