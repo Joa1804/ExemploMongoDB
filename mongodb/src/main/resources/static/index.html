@@ -60,13 +60,12 @@
         }
 </style>
 <body>
-    <h1>Cadastro de Usuários e produtor</h1>
+    <h1>Cadastro de Usuários</h1>
 
     <form id="userForm">
         <input type="hidden" id="userId">
         <input type="text" id="nome" placeholder="Nome" required>
         <input type="email" id="email" placeholder="Email" required>
-        <input type="hidden" id="nomeprodutor" placeholder="Nome do produtor" required>
         <button type="submit">Salvar</button>
         <button type="button" onclick="novoUsuario()">Novo Usuario</button>
     </form>
@@ -76,7 +75,6 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Ações</th>
-                <th>produtor</th>
             </tr>
         </thead>
         <tbody id="userTable"></tbody>
